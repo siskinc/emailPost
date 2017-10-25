@@ -20,13 +20,13 @@ class EmailPost(object):
             raise ValueError('type is not a str, please input "qq","QQ","gmail","163"!')
         if tp == 'qq' or tp == 'QQ':
             if match(r'^\w+@qq.com$', from_addr) is None:
-                raise ValueError('The email, %s , is not a %s email' % (from_addr, type))
+                raise ValueError('The email, %s , is not a %s email' % (from_addr, tp))
         if tp == 'gmail':
             if match(r'^\w+@gmail.com$', from_addr) is None:
-                raise ValueError('The email, %s , is not a %s email' % (from_addr, type))
+                raise ValueError('The email, %s , is not a %s email' % (from_addr, tp))
         if tp == '163':
             if match(r'^\w+@163.cn$', from_addr) is None:
-                raise ValueError('The email, %s , is not a %s email' % (from_addr, type))
+                raise ValueError('The email, %s , is not a %s email' % (from_addr, tp))
         self.__type = tp
         self.__from_addr = from_addr
         self.__password = password
@@ -50,7 +50,7 @@ class EmailPost(object):
         return smtplib.SMTP_SSL('smtp.qq.com', 465)
     
     def open_gmail(self):
-        return smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        return smtplib.SMTP_SSL('smtp.gmail.com', 587)
     
     def open_163(self):
         return smtplib.SMTP_SSL('smtp.163.com', 465)
@@ -87,6 +87,6 @@ def _format_addr(s):
 	return formataddr((Header(name,'utf-8').encode(),addr))
 
 if __name__ == '__main__':
-    emailPost = EmailPost('qq','571639000@qq.com','hlzmwrvufyrrbcbf')
-    emailPost.post('susecjh@gmail.com','哈哈','emmmmm')
+    emailPost = EmailPost('gmail','susecjh@gmail.com',r'CJHyx2542499.')
+    emailPost.post('571639000@qq.com','哈哈','emmmmm')
     del emailPost
